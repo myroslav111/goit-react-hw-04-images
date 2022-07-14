@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import { CSSTransition } from 'react-transition-group';
 import './animation/ModalAnimation.css';
+import './animation/TextAnimation.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
@@ -99,8 +100,15 @@ const App = () => {
     setLargeImageURL('');
   };
 
+  // делаем буль для анимации модалки
+  const boolForAnimateModal = () => {
+    if (largeImageURL) {
+      return true;
+    }
+    return false;
+  };
+  const bool = boolForAnimateModal();
   const listOfPictures = makeArrImgForGallery();
-
   return (
     <MainWrap>
       <Searchbar
@@ -108,19 +116,24 @@ const App = () => {
         searchName={name || 'Start your search'}
       />
 
-      {loader && <Text>Start your search</Text>}
-      {error && <ErrorMessageViev />}
-
-      <ImageGallery
-        pageList={listOfPictures}
-        pictureForModal={getPhotoForModal}
-      />
+      {/* {loader && <Text>Start your search</Text>} */}
       <CSSTransition
-        in={largeImageURL}
+        in={loader}
         unmountOnExit
-        classNames="fade"
-        timeout={250}
+        timeout={2500}
+        classNames="fadetext"
       >
+        <Text>Start your search</Text>
+      </CSSTransition>
+      {error && <ErrorMessageViev />}
+      {!error && (
+        <ImageGallery
+          pageList={listOfPictures}
+          pictureForModal={getPhotoForModal}
+        />
+      )}
+
+      <CSSTransition in={bool} unmountOnExit classNames="fade" timeout={250}>
         <Modal urlPhoto={largeImageURL} closeModal={handleBakcdropClick} />
       </CSSTransition>
 
