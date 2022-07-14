@@ -6,9 +6,11 @@
   transition: opacity 250ms linear;
 }
 .fade-exit {
+  transform: translateX(0);
   opacity: 1;
 }
 .fade-exit-active {
   opacity: 0;
-  transition: opacity 250ms linear;
+  transform: translateX(-100%);
+  transition: all 250ms linear;
 }
