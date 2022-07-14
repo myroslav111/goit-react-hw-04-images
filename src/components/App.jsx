@@ -10,6 +10,8 @@ import { MainWrap } from './App.styled';
 import { Text } from './ImageGallery/ImageGallery.styled';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
+import { CSSTransition } from 'react-transition-group';
+import './animation/ModalAnimation.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
@@ -113,9 +115,14 @@ const App = () => {
         pageList={listOfPictures}
         pictureForModal={getPhotoForModal}
       />
-      {largeImageURL && (
+      <CSSTransition
+        in={largeImageURL}
+        unmountOnExit
+        classNames="fade"
+        timeout={250}
+      >
         <Modal urlPhoto={largeImageURL} closeModal={handleBakcdropClick} />
-      )}
+      </CSSTransition>
 
       {!loader ? <Button onChengePage={loadMore} /> : <Loader />}
       <ToastContainer autoClose={3000} />
