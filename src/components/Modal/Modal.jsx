@@ -14,7 +14,7 @@ const Modal = ({ urlPhoto, closeModal }) => {
     return () => {
       window.removeEventListener('keydown', hendleKeyDown);
     };
-  }, []);
+  });
 
   // фун. закрыти модалки по esc
   const hendleKeyDown = e => {

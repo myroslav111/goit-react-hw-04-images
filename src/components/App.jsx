@@ -25,8 +25,8 @@ const App = () => {
 
   useEffect(() => {
     setError(null);
-
-    if (name) {
+    // if(page)
+    if (name && page === 1) {
       setLoader(true);
       pixabayApi
         .fetchPage(name, page)
@@ -40,7 +40,7 @@ const App = () => {
         .catch(error => setError(error.message))
         .finally(setLoader(false));
     }
-  }, [name]);
+  }, [name, page]);
 
   useEffect(() => {
     setError(null);
@@ -56,13 +56,13 @@ const App = () => {
                 new Error(toast.error(`not found ${name}`))
               );
             }
-            setPictures([...pictures, arrOfImg.hits]);
+            setPictures(prevIndex => [...prevIndex, arrOfImg.hits]);
           })
           .catch(error => setError(error.message))
           .finally(setLoader(false));
       }, 1000);
     }
-  }, [page]);
+  }, [page, name]);
 
   //фун. делаем масив изображений для галереи
   const makeArrImgForGallery = () => {
